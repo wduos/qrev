@@ -30,3 +30,25 @@ header button:hover {
 header button:hover svg {
   fill: var(--dark);
 }
+
+section {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  width: 100%;
+  height: calc(100vh - 60px);
+  padding: var(--spacing-1);
+}
+.qr-wrapper {
+  width: 10rem;
+  padding: var(--spacing);
+  background-color: white;
+  border-radius: var(--radius);
+  box-shadow: 3px 3px 6px var(--shadow-tint);
+}
+.qr-wrapper h3 {
+  margin-top: var(--spacing-1);
+  font-weight: 600;
+  font-size: var(--text-r);
+  line-height: 1;
+}

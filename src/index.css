@@ -15,7 +15,7 @@
   --spacing: 1rem;
   --spacing-1: 0.5rem;
   --spacing-2: 0.25rem;
-  --text-xl: 2.5rem;
+  --text-xl: 2.2rem;
   --text-l: 1.5rem;
   --text-r: 1rem;
   --text-s: 0.8rem;
@@ -131,4 +131,7 @@ input[type="text"] {
 input[type="text"]:focus,
 input[type="text"]:focus-visible {
   outline: 2px solid var(--accent) !important;
+}
+input[type="text"].error {
+  outline: 2px solid var(--red-tint) !important;
 }
