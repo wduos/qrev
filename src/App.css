@@ -35,6 +35,7 @@ section {
   display: flex;
   align-items: flex-start;
   gap: var(--spacing-1);
+  flex-wrap: wrap;
   width: 100%;
   height: calc(100vh - 60px);
   padding: var(--spacing-1);
@@ -64,10 +65,11 @@ section {
 .qr-wrapper h3 {
   font-weight: 600;
   font-size: var(--text-r);
-  line-height: 0.7;
+  line-height: 1;
+  line-break: anywhere;
 }
 .qr-wrapper button {
-  margin-top: var(--spacing);
+  margin-top: var(--spacing-1);
   width: 100%;
   height: calc(var(--spacing) * 2);
   font-weight: 500;
