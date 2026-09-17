@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import QRCode from "react-qr-code";
 
 function App() {
@@ -7,6 +7,7 @@ function App() {
   const [qrText, setQrText] = useState("");
   const [modalInputError, setModalInputError] = useState(false);
   const [qrList, setQrList] = useState([]);
+  const qrInputRef = useRef(null);
 
   const handleOpenModal = () => {
     setQrText("");
@@ -14,7 +15,34 @@ function App() {
     setIsModalOpen(true);
   };
 
-  const handleCreateQr = () => {
+  useEffect(() => {
+    if (isModalOpen && qrInputRef.current) {
+      qrInputRef.current.focus();
+      qrInputRef.current.select();
+    }
+  }, [isModalOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      const pressedKey = e.key.toLowerCase();
+
+      if (pressedKey === "n" && !isModalOpen) {
+        e.preventDefault();
+        handleOpenModal();
+      }
+
+      if (pressedKey === "escape" && isModalOpen) {
+        setIsModalOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isModalOpen]);
+
+  const handleCreateQr = (event) => {
+    event.preventDefault();
+
     const text = qrText.trim();
 
     if (!text) {
@@ -26,6 +54,13 @@ function App() {
     setModalInputError(false);
     setQrList((prevList) => [...prevList, { text }]);
   };
+
+  const handleDeleteQr = (index) => {
+    setQrList((prevList) =>
+      prevList.filter((_, itemIndex) => itemIndex !== index),
+    );
+  };
+
   return (
     <>
       <header>
@@ -41,15 +76,25 @@ function App() {
       </header>
 
       <section>
-        {qrList.map((qr) => (
-          <div className="qr-wrapper">
+        {qrList.length === 0 && (
+          <small className="default-message">
+            Pressione <span className="bold">N</span> ou aperte no botão{" "}
+            <span className="bold">Criar +</span>, para gerar um QR Code.
+          </small>
+        )}
+        {qrList.map((qr, index) => (
+          <div className="qr-wrapper" id={index}>
             <QRCode
               value={qr.text}
               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
               viewBox={`0 0 256 256`}
               size={256}
             />
+            <small>Texto do QR Code</small>
             <h3>{qr.text}</h3>
+            <button type="button" onClick={() => handleDeleteQr(index)}>
+              Deletar
+            </button>
           </div>
         ))}
       </section>
@@ -59,36 +104,37 @@ function App() {
           <div className="overlay" onClick={() => setIsModalOpen(false)}></div>
           <div className="modal">
             <h2>Novo QR Code</h2>
-            <input
-              type="text"
-              id="qr-text"
-              className={modalInputError ? "error" : ""}
-              placeholder={
-                modalInputError
-                  ? "Insira o texto para o QR Code"
-                  : "Texto para o QR Code"
-              }
-              value={qrText}
-              onChange={(e) => {
-                setQrText(e.target.value);
-              }}
-            />
-            <div className="modal-actions-wrapper">
-              <button
-                className="modal-action-btn"
-                type="button"
-                onClick={() => setIsModalOpen(false)}
-              >
-                Cancelar
-              </button>
-              <button
-                className="modal-action-btn"
-                type="button"
-                onClick={handleCreateQr}
-              >
-                Confirmar
-              </button>
-            </div>
+            <form onSubmit={(e) => handleCreateQr(e)}>
+              <input
+                ref={qrInputRef}
+                type="text"
+                id="qr-text"
+                className={modalInputError ? "error" : ""}
+                placeholder={
+                  modalInputError
+                    ? "Insira o texto para o QR Code"
+                    : "Texto para o QR Code"
+                }
+                value={qrText}
+                onChange={(e) => {
+                  setQrText(e.target.value);
+                }}
+              />
+              <div className="modal-actions-wrapper">
+                <button
+                  className="modal-action-btn"
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancelar
+                </button>
+                <input
+                  className="modal-action-btn"
+                  type="submit"
+                  value="Confirmar"
+                />
+              </div>
+            </form>
           </div>
         </>
       )}

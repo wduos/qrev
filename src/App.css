@@ -39,16 +39,48 @@ section {
   height: calc(100vh - 60px);
   padding: var(--spacing-1);
 }
+.default-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--dim);
+}
 .qr-wrapper {
-  width: 10rem;
+  width: 9rem;
   padding: var(--spacing);
   background-color: white;
   border-radius: var(--radius);
   box-shadow: 3px 3px 6px var(--shadow-tint);
 }
-.qr-wrapper h3 {
+.qr-wrapper small {
   margin-top: var(--spacing-1);
+  font-weight: 300;
+  font-size: var(--text-xs);
+  line-height: 1;
+  color: var(--dim);
+}
+.qr-wrapper h3 {
   font-weight: 600;
   font-size: var(--text-r);
-  line-height: 1;
+  line-height: 0.7;
+}
+.qr-wrapper button {
+  margin-top: var(--spacing);
+  width: 100%;
+  height: calc(var(--spacing) * 2);
+  font-weight: 500;
+  font-size: var(--text-r);
+  line-height: 0.7;
+  background-image: linear-gradient(25deg, var(--dark), var(--dark));
+  border: none;
+  border-radius: var(--radius);
+  color: white;
+  cursor: pointer;
+  box-shadow: 2px 2px 3px var(--shadow-tint);
+}
+.qr-wrapper button:hover {
+  background-image: linear-gradient(25deg, var(--accent), var(--accent-alt));
+  box-shadow: unset;
 }
