@@ -34,7 +34,7 @@ header button:hover svg {
 section {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-2);
+  gap: var(--spacing-1);
   width: 100%;
   height: calc(100vh - 60px);
   padding: var(--spacing-1);
