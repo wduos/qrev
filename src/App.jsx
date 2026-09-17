@@ -90,7 +90,6 @@ function App() {
               viewBox={`0 0 256 256`}
               size={256}
             />
-            <small>Texto do QR Code</small>
             <h3>{qr.text}</h3>
             <button type="button" onClick={() => handleDeleteQr(index)}>
               Deletar

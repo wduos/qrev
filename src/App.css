@@ -33,10 +33,11 @@ header button:hover svg {
 
 section {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   gap: var(--spacing-1);
   flex-wrap: wrap;
-  width: 100%;
+  width: calc(100% - var(--spacing-1) * 2);
   height: calc(100vh - 60px);
   padding: var(--spacing-1);
 }
@@ -49,22 +50,15 @@ section {
   color: var(--dim);
 }
 .qr-wrapper {
-  width: 9rem;
+  width: 8rem;
   padding: var(--spacing);
   background-color: white;
   border-radius: var(--radius);
   box-shadow: 3px 3px 6px var(--shadow-tint);
 }
-.qr-wrapper small {
-  margin-top: var(--spacing-1);
-  font-weight: 300;
-  font-size: var(--text-xs);
-  line-height: 1;
-  color: var(--dim);
-}
 .qr-wrapper h3 {
   font-weight: 600;
-  font-size: var(--text-r);
+  font-size: var(--text-s);
   line-height: 1;
   line-break: anywhere;
 }
